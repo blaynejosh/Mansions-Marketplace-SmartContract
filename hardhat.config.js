@@ -1,9 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox")
 require("hardhat-deploy")
 require("dotenv").config()
-require("hardhat-gas-reporter")
-require("@nomiclabs/hardhat-etherscan")
-require("solidity-coverage")
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -44,17 +41,17 @@ module.exports = {
     },
     defaultNetwork: "hardhat",
     networks: {
-        mumbai: {
-            url: ALCHEMY_POLYGON_MUMBAI_RPC_URL,
-            accounts: [PRIVATE_KEY],
-            //   accounts: {
-            //     mnemonic: MNEMONIC,
-            //   },
-            saveDeployments: true,
-            chainId: 80001,
-            blockConfirmations: 6,
-            gas: 6000000,
-        },
+        // mumbai: {
+        //     url: ALCHEMY_POLYGON_MUMBAI_RPC_URL,
+        //     accounts: [PRIVATE_KEY],
+        //     //   accounts: {
+        //     //     mnemonic: MNEMONIC,
+        //     //   },
+        //     saveDeployments: true,
+        //     chainId: 80001,
+        //     blockConfirmations: 6,
+        //     gas: 6000000,
+        // },
     },
     etherscan: {
         // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
@@ -95,6 +92,6 @@ module.exports = {
     },
 
     paths: {
-        tests: "./test/escrow",
+        test: "./test/escrow",
     },
 }
