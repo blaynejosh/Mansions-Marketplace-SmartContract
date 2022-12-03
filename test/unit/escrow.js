@@ -11,7 +11,7 @@ const tokens = (n) => {
     : describe("Mansions Unit Tests", function () {
           let mansions, escrow, deployer, inspector, lender, buyer, minimumEarnest, mockV3Aggregator
 
-          const chainId = network.config.chainId
+          //   const chainId = network.config.chainId
 
           beforeEach(async function () {
               deployer = (await getNamedAccounts()).deployer
@@ -21,26 +21,29 @@ const tokens = (n) => {
 
               await deployments.fixture(["all"])
 
-              mansions = await ethers.getContract("RealEstateVerifier", deployer)
-              mockV3Aggregator = await ethers.getContractFactory("MockV3Aggregator", deployer)
+              mansions = await ethers.getContractFactory("RealEstateVerifier")
+              const mansionsContract = await mansions.deploy()
+              mockV3Aggregator = await ethers.getContractFactory("MockV3Aggregator")
+              const MockV3Aggregator = await mockV3Aggregator.deploy()
 
               // Mint an NFT
-              let transaction = await mansions
+              let transaction = await mansionsContract
                   .connect(deployer)
                   .mint("https://ipfs.io/ipfs/QmTudSYeM7mz3PkYEWXWqPjomRPHogcMFSq7XAvsvsgAPS")
               await transaction.wait()
 
               // Deploying the Escrow contract
-              const Escrow = await ethers.getContract("Escrow")
+              const Escrow = await ethers.getContractFactory("Escrow")
               escrow = await Escrow.deploy(
-                  mansions.address,
+                  mansionsContract.address,
                   deployer.address,
                   inspector.address,
                   lender.address
+                  //   MockV3Aggregator.address
               )
 
               // Approve property to be listed on escrow
-              transaction = await mansions.connect(deployer).approve(escrow.address, 1)
+              transaction = await mansionsContract.connect(deployer).approve(escrow.address, 1)
               await transaction.wait()
 
               // List the property on escrow
@@ -53,13 +56,7 @@ const tokens = (n) => {
           describe("deployment", function () {
               it("returns NFT address", async function () {
                   const result = await escrow.nftAddress()
-                  assert.equal(result, mansions.address)
-              })
-          })
-          describe("constructor", function () {
-              it("sets the aggregator priceFeed correctly", async function () {
-                  const response = await fundMe.getPriceFeed()
-                  assert.equal(response, mockV3Aggregator.address)
+                  assert.equal(result, mansionsContract.address)
               })
           })
       })

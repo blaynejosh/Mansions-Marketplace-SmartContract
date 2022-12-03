@@ -9,7 +9,7 @@ import "./interfaces/ICircuitValidator.sol";
 import "./verifiers/ZKPVerifier.sol";
 
 // Main Contract for the
-contract RealEstateVerifier is ERC721URIStorage, ZKPVerifier {
+contract RealEstateVerifier is ERC721, ZKPVerifier {
     // Variables
     uint64 public constant TRANSFER_REQUEST_ID = 1;
     string private erc721Name;
@@ -92,4 +92,8 @@ contract RealEstateVerifier is ERC721URIStorage, ZKPVerifier {
     function totalSupply() public view returns (uint256) {
         return _tokenIds.current();
     }
+
+    // function connect() public {
+    //     return _afterProofSubmit();
+    // }
 }

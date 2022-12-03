@@ -72,7 +72,7 @@ module.exports = {
     },
     contractSizer: {
         runOnCompile: false,
-        only: ["Raffle"],
+        only: ["RealEstateVerifier", "Escrow"],
     },
     namedAccounts: {
         deployer: {
@@ -90,11 +90,11 @@ module.exports = {
         },
     },
 
-    mocha: {
-        timeout: 500000, // 500 seconds max for running tests
-    },
+    // mocha: {
+    //     timeout: 500000, // 500 seconds max for running tests
+    // },
 
     paths: {
-        tests: "./test/escrow",
+        test: "./test/escrow",
     },
 }
