@@ -19,8 +19,6 @@ contract RealEstateVerifier is ERC721, ZKPVerifier {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    event CreatedNFT(uint256 indexed tokenId, uint64 requestId);
-
     constructor(string memory name_, string memory symbol_) ERC721(name_, symbol_) {
         erc721Name = name_;
         erc721Symbol = symbol_;
@@ -65,8 +63,6 @@ contract RealEstateVerifier is ERC721, ZKPVerifier {
             _safeMint(_msgSender(), newItemId);
             addressToId[_msgSender()] = id;
             idToAddress[id] = _msgSender();
-
-            emit CreatedNFT(newItemId, TRANSFER_REQUEST_ID);
 
             // return newItemId;
         }

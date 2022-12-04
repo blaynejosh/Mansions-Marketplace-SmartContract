@@ -1,13 +1,9 @@
 # Sample Hardhat Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project demonstrates a sistuation of buying a property which includes the seller of the property with the inspector and a lender to fund the purchase and the buyer who gets the property after purchase.
 
-Try running some of the following tasks:
+This project aims at creating a market place for the sale of NFTs which represent real life properties and it implements the use of CHAINLINK PRICE FEED and the The POLYGON ID(ZKPVerifier)
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+This project would take a longer time to complete as it requires more work to be completed.
+
+It is an interesting project and it would surely be completed.

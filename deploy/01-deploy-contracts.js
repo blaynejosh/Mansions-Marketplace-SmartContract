@@ -27,58 +27,60 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     })
 
     console.log(`Deployed Escrow Contract at: ${realEstateVerifier.address}`)
-    console.log(`Listing 3 properties...\n`)
+    // console.log(`Listing 3 properties...\n`)
 
-    for (let i = 0; i < 3; i++) {
-        const transaction = await realEstateVerifier
-            .connect(deployer)
-            .mint(
-                `https://ipfs.io/ipfs/QmQVcpsjrA6cr1iJjZAodYwmPekYgbnXGo4DFubJiLc2EB/${i + 1}.json`
-            )
-        //     await transaction.wait()
-        // }
+    // for (let i = 0; i < 3; i++) {
+    //     const transaction = await realEstateVerifier
+    //         .connect(deployer)
+    //         .mint(
+    //             `https://ipfs.io/ipfs/QmQVcpsjrA6cr1iJjZAodYwmPekYgbnXGo4DFubJiLc2EB/${i + 1}.json`
+    //         )
+    //     await transaction.wait()
+    //     // }
 
-        // Deploying Escrow
-        const escrow = await deploy("Escrow", {
-            from: deployer,
-            log: true,
-            args: [
-                maticUsdPriceFeedAddress,
-                realEstateVerifier.address,
-                deployer.address,
-                inspector.address,
-                lender.address,
-            ],
-            waitConfirmations: network.config.blockConfirmations || 1,
-        })
+    // Deploying Escrow
+    const escrow = await deploy("Escrow", {
+        from: deployer,
+        log: true,
+        args: [
+            maticUsdPriceFeedAddress,
+            realEstateVerifier.address,
+            deployer.address,
+            inspector.address,
+            lender.address,
+        ],
+        waitConfirmations: network.config.blockConfirmations || 1,
+    })
 
-        console.log(`Deployed Escrow Contract at: ${escrow.address}`)
-        console.log(`Listing 3 properties...\n`)
+    console.log(`Deployed Escrow Contract at: ${escrow.address}`)
+    // console.log(`Listing 3 properties...\n`)
 
-        // for (let i = 0; i < 3; i++) {
-        //     // Approve properties...
-        //     let transaction = await realEstateVerifier.connect(deployer).approve(escrow.address, i + 1)
-        //     await transaction.wait()
-        // }
+    // for (let i = 0; i < 3; i++) {
+    //     // Approve properties...
+    //     let transaction = await realEstateVerifier
+    //         .connect(deployer)
+    //         .approve(escrow.address, i + 1)
+    //     await transaction.wait()
+    // }
 
-        // Listing properties...
-        // transaction = await escrow.connect(deployer).list(1, buyer.address, tokens(20), tokens(10))
-        // await transaction.wait()
+    // Listing properties...
+    // transaction = await escrow.connect(deployer).list(1, buyer.address, tokens(20), tokens(10))
+    // await transaction.wait()
 
-        // transaction = await escrow.connect(deployer).list(2, buyer.address, tokens(15), tokens(5))
-        // await transaction.wait()
+    // transaction = await escrow.connect(deployer).list(2, buyer.address, tokens(15), tokens(5))
+    // await transaction.wait()
 
-        // transaction = await escrow.connect(deployer).list(3, buyer.address, tokens(10), tokens(5))
-        // await transaction.wait()
+    // transaction = await escrow.connect(deployer).list(3, buyer.address, tokens(10), tokens(5))
+    // await transaction.wait()
 
-        // console.log(`Finished.`)
+    // console.log(`Finished.`)
 
-        // Verifying on the blockchain
-        if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-            await verify(realEstateVerifier.address, args)
-            await verify(escrow.address, args)
-        }
-        log("------------------------------------------------------------------")
+    // Verifying on the blockchain
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        await verify(realEstateVerifier.address, args)
+        await verify(escrow.address, args)
     }
+    log("------------------------------------------------------------------")
 }
+// }
 module.exports.tags = ["all", "realEstateVerifier", "escrow"]
